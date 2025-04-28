@@ -3,7 +3,6 @@ const bcrypt = require('bcryptjs');
 const jwt=require('jsonwebtoken')
 const {signupValidate ,signinValidation } = require('../utils/zodValidation');
 const {cloudinary } = require('../utils/cloudinaryconfig');
-const { FaSleigh } = require('react-icons/fa');
 const streamifier = require('streamifier');
 
 //signup
