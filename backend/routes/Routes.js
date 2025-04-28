@@ -14,12 +14,12 @@ router.get('/doctor/profiles',getAllProfile);
 
 
 //post route
-router.post('/create/:doctorId', authMiddleware, createPost);
-router.put('/update/:id', authMiddleware, updatePost);
-router.get('/getall', getAllPosts);
-router.get('/:id', getOnePost);
-router.delete('/delete/:id', authMiddleware, deletePost);
-router.post('/upvote/:id', authMiddleware, upvotePost);
-router.get('/doctor/:doctorId', getDoctorPosts);
+router.post('/post/create/:doctorId', authMiddleware, createPost);
+router.put('/post/update/:id', authMiddleware, updatePost);
+router.get('/post/getall', getAllPosts);
+router.get('/post/:id', getOnePost);
+router.delete('/post/delete/:id', authMiddleware, deletePost);
+router.post('/post/upvote/:id', authMiddleware, upvotePost);
+router.get('/post/doctor/:doctorId', getDoctorPosts);
 
 module.exports = router;

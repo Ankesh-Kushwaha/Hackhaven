@@ -93,11 +93,17 @@ const signinDoctor = async (req, res) => {
     //find the user
     const user = await Doctors.findOne({ email });
     //verify the enter password
-    const passwordVerify = await bcrypt.compare(user.password, password);
+    const passwordVerify = await bcrypt.compare(password, user.password);
+    if (!passwordVerify) {
+      return res.status(402).json({
+        success: false,
+        message:"password is wrong"
+      })
+    }
 
     //creating the json web token
     const token = jwt.sign({
-      _id: user._id
+      user: user._id
     }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
     res.status(200).json({
