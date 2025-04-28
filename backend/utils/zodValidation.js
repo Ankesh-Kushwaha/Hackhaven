@@ -11,8 +11,14 @@ const signupValidate = zod.object({
 })
 
 
+const signinValidation = zod.object({
+  email:zod.string(),
+  password:zod.string().min(5).max(10)
+})
+
 
 
 module.exports = {
-   signupValidate,
+  signupValidate,
+  signinValidation
 }

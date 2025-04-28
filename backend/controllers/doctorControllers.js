@@ -1,7 +1,7 @@
 const { Doctors } = require('../schema/Schema');
 const bcrypt = require('bcryptjs');
-const webtoken=require('jsonwebtoken')
-const {signupValidate } = require('../utils/zodValidation');
+const jwt=require('jsonwebtoken')
+const {signupValidate ,signinValidation } = require('../utils/zodValidation');
 const {cloudinary } = require('../utils/cloudinaryconfig');
 const { FaSleigh } = require('react-icons/fa');
 const streamifier = require('streamifier');
@@ -69,13 +69,96 @@ const signupDoctor = async (req, res) => {
 
 
 const signinDoctor = async (req, res) => {
-  res.json("user signIn done");
+  try {
+    const body = req.body;
+    
+    if (!body) {
+      return res.status(401).json({
+        success: false,
+        message:"email and password is required."
+      })
+    }
+    
+    const validate = signinValidation.safeParse(body);
+    if (!validate.success) {
+      return res.status(402).json({
+        success: false,
+        message: "zod validation failed",
+        error: err.message
+      })
+    }
+    
+    const { email, password } = body;
+    
+    //find the user
+    const user = await Doctors.findOne({ email });
+    //verify the enter password
+    const passwordVerify = await bcrypt.compare(user.password, password);
+
+    //creating the json web token
+    const token = jwt.sign({
+      _id: user._id
+    }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+    res.status(200).json({
+      success: true,
+      message: "user logged in Successfully",
+      token:token
+    })
+  }
+  catch (err) {
+    return res.status(500).json({
+      success: false,
+      message: "internal server Error",
+      error:err.message,
+      })
+  }
 }
 
 const getDoctorProfile = async (req, res) => {
-  res.json("doctor profile fetched successfully");
+  try {
+    const doctorId = req.params.doctorId;
+    const doctorProfile = await Doctors.findById(doctorId);
+    if (!doctorProfile) {
+      return res.status(402).json({
+        success: false,
+         message:'Doctor profile does not exist'
+        })
+    }
+    
+    res.status(200).json({
+      success: true,
+      message: "user found",
+      doctorProfile:doctorProfile
+    })
+  }
+  catch (err) {
+    return res.status(500).json({
+      success:false,
+      message: "internal Server Error",
+      error:err.message
+     })
+  }
 }
 
+
+const getAllProfile = async (req, res) => {
+  try {
+    const allProfile = await Doctors.find();
+    res.status(200).json({
+      success: true,
+      message: "all profile fetched successfully",
+      allProfile:allProfile
+    })
+  }
+  catch (err) {
+    return res.status(500).json({
+      success: false,
+      message: "internal server error",
+      error:err.message,
+     })
+  }
+}
 
 
 
@@ -115,12 +198,12 @@ const uploadDoctorProfile = async (req, res) => {
             }
           }
         );
-        streamifier.createReadStream(buffer).pipe(stream);
+        streamifier.createReadStream(buffer).pipe(stream); //create the stream to upload for cloudinary
       });
     };
 
-    const uploadResult = await streamUpload(buffer);
-    
+    const uploadResult = await streamUpload(buffer);  //image upload to cloudinary;
+
     // Update doctor document
     const updatedDoctor = await Doctors.findByIdAndUpdate(
       doctorId,
@@ -161,6 +244,7 @@ module.exports={
     signinDoctor,
     signupDoctor,
     getDoctorProfile,
-    uploadDoctorProfile
+  uploadDoctorProfile,
+    getAllProfile
 }
 
