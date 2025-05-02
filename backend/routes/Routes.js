@@ -1,8 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const { signinDoctor, signupDoctor, getDoctorProfile, uploadDoctorProfile, getAllProfile } = require('../controllers/doctorControllers');
-const { createPost, updatePost, getAllPosts, getOnePost, upvotePost, getDoctorPosts, deletePost } = require('../controllers/postControllers')
-const {authMiddleware} =require('../middleware/authMiddleware')
+const { createPost,updatePost, getAllPosts, getOnePost, upvotePost, getDoctorPosts, deletePost } = require('../controllers/postControllers')
+const { authMiddleware } = require('../middleware/authMiddleware');
+const multer = require('multer');
+const upload = multer({ storage: multer.memoryStorage() }); // store in memory
+
 
 
 //doctor profile section
@@ -14,7 +17,7 @@ router.get('/doctor/profiles',getAllProfile);
 
 
 //post route
-router.post('/post/create/:doctorId', authMiddleware, createPost);
+router.post('/post/create/:doctorId', authMiddleware,upload.single('image'),createPost);
 router.put('/post/update/:id', authMiddleware, updatePost);
 router.get('/post/getall', getAllPosts);
 router.get('/post/:id', getOnePost);

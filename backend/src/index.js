@@ -5,7 +5,7 @@ const PORT = process.env.PORT || 3000;
 const cors = require('cors')
 const mainRoute = require('../routes/Routes');
 const { connectToDb } = require('../dataBase/db')
-const bodyParser=require('body-parser')
+const bodyParser = require('body-parser');
 
 
 //middleware
