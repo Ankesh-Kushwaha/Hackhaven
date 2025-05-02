@@ -2,6 +2,7 @@ const {Cases}=require('../schema/Schema')
 const { CreatecaseValidation } = require('../utils/zodValidation')
 const { cloudinary } = require('../utils/cloudinaryconfig');
 const streamifier = require('streamifier');
+const { FaSleigh } = require('react-icons/fa');
 
 
 //function to convert the coming body to its specified types
@@ -221,8 +222,88 @@ const deletePost = async (req, res) => {
 
 //controller for creating the upvotes of the user
 const upvotePost = async (req, res) => {
-  res.json('upvote is increase by 1');
+  try {
+    const postId = req.params.id;
+    const userId = req.user.user;  //etract the user id from the authMiddleware
+    //find the particula post for upvotes
+    const post = await Cases.findById(postId);
+    
+    if (!post) {
+      return res.status(400).json({
+        success: true,
+        message:"Case not found"
+       })
+    }
+
+    //check if the user had already upvotes the post
+    const alreadyUpvoted = post.upvotedBy.includes(userId);
+    if (alreadyUpvoted) {
+      return res.status(400).json({
+        success: false,
+        message:"You already upvoted"
+      })
+    }
+
+    //upvotes the case
+    post.upvotes += 1;
+    post.upvotedBy.push(userId);
+    //save the post
+    await post.save();
+    res.status(200).json({
+      success: true,
+      message: "You upvoted the case successFully",
+    })
+  }
+  catch (err) {
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+      err:err.message,
+      })
+  }
 }
+
+const downvotePost = async (req, res) => {
+  try {
+    const postId = req.params.id;
+    const userId = req.user.user;
+    const post = await Cases.findById(postId);
+
+    if (!post) {
+      return res.status(400).json({
+        success: false,
+        message:"case does not found",
+      })
+    }
+
+    //check if the user is upvoted the post or not
+    const alreadyUpvoted = post.upvotedBy.includes(userId);
+    if (!alreadyUpvoted) {
+      return res.status(400).json({
+        success: false,
+        message:"You do not upvoted the case"
+        })
+    }
+
+    post.upvotedBy = post.upvotedBy.filter(id => id.toString() !== userId);
+    post.upvotes = Math.max(0, post.upvotes - 1);
+    await post.save();
+    
+  return res.status(200).json({
+      success: true,
+      message: 'Upvote removed',
+      upvotes: post.upvotes,
+  })
+  }
+  catch (err) {
+    res.status(500).json({
+      success: false,
+      message: "Internal server Error",
+      error:err.message,
+    })
+  }
+}
+
 
 //controller for getting the all post  of a particular doctor;
 const getDoctorPosts = async (req, res) => {
@@ -243,5 +324,6 @@ module.exports = {
   getOnePost,
   deletePost,
   upvotePost,
-  getDoctorPosts
+  getDoctorPosts,
+  downvotePost
 }
