@@ -10,12 +10,6 @@ const doctorSchema=new mongoose.Schema(
     licenseState: { type: String,default:"Delhi" },
     licenseCountry: { type: String, default: "India" },
 
-    // CLOUDINARY FIELDS for license certificate
-    // licenseDocument: {
-    //   url: { type: String },        // Cloudinary secure URL
-    //   publicId: { type: String },   // Cloudinary public_id (needed for deleting later)
-    // },
-
     // CLOUDINARY FIELDS for profile picture
     profilePicture: {
       url: { type: String },        // Cloudinary secure URL

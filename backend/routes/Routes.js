@@ -19,10 +19,10 @@ router.get('/doctor/profiles',getAllProfile);
 //post route
 router.post('/post/create/:doctorId', authMiddleware,upload.single('image'),createPost);
 router.put('/post/update/:id', authMiddleware, updatePost);
-router.get('/post/getall', getAllPosts);
-router.get('/post/:id', getOnePost);
+router.get('/post/getall',authMiddleware, getAllPosts);
+router.get('/post/:id', authMiddleware,getOnePost);
 router.delete('/post/delete/:id', authMiddleware, deletePost);
 router.post('/post/upvote/:id', authMiddleware, upvotePost);
-router.get('/post/doctor/:doctorId', getDoctorPosts);
+router.get('/post/doctor/:id', getDoctorPosts);
 
 module.exports = router;

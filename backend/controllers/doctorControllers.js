@@ -99,7 +99,8 @@ const signinDoctor = async (req, res) => {
         message:"password is wrong"
       })
     }
-
+     
+    console.log("userId", user._id);
     //creating the json web token
     const token = jwt.sign({
       user: user._id

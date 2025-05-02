@@ -14,7 +14,6 @@ const authMiddleware = async (req, res, next) => {
 
      // 2. Verify token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
     // 3. Attach decoded info to request (so you can access req.user later)
     req.user = decoded;
     next(); //call the next middleware;

@@ -21,7 +21,7 @@ const parseDate = (value) => {
 };
 
 
-//routes for creating a new post and also uploading the proper image;
+//controller for creating a full new post with the image;
 const createPost = async (req, res) => {
   try {
         const body = { //parsing the array before passing for zod validation
@@ -121,30 +121,116 @@ const createPost = async (req, res) => {
   }
 };
 
-
-
+//controller for updating a particular post
 const updatePost = async (req, res) => {
   res.json('post updated successfully');
 }
 
+//controller for getting all the posts
 const getAllPosts = async (req, res) => {
-  res.json('post fetched successfully');
+  try {
+    const allCases = await Cases.find();
+    res.status(200).json({
+      success: true,
+      message: "All post fetched successfully",
+      cases:allCases
+    })
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: "internal server errror",
+      error: err.message
+      })
+   }
 }
 
+//controller for getting a single post
 const getOnePost = async (req, res) => {
-  res.json('a single post fetched successfully');
+  try {
+    const caseId = req.params.id;  //asscess the caseId from the req
+    const singleCase = await Cases.findById(caseId);
+    if (!singleCase) {
+      return res.status(200).json(  //if the case does not found no need to extend further;
+        {
+          success: true,
+          message:"Case not found"
+        }
+      )
+    }
+   
+    res.status(200).json({  //return the found case with the given id;
+      success: false,
+      message: "case found successfully",
+      case:singleCase
+    })
+
+  }
+  catch (err) {
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+      error:err.message,
+      })
+  }
 }
 
+//controller  for deleting the post of a particular doctor
 const deletePost = async (req, res) => {
-  res.json('post deleted successfully');
+  try {
+    const caseId = req.params.id;
+    const doctorId = req.user.user; //access the logged in user id from the authMiddleware
+    
+    const casetoBeDelete = await Cases.findById(caseId);
+    if (!casetoBeDelete) {
+      return res.status(401).json({
+        success: false,
+        message: "case does not found",
+       })
+    }
+
+    if (doctorId !== casetoBeDelete.createdBy.toString()) { //compare the doctorId with the cases createdBy
+      return res.status(401).json({
+        success: false,
+        message:"you are not authorized to delete this post",
+       })
+    }
+
+
+    const deleteCase = await Cases.findByIdAndDelete(caseId);
+    if (!deleteCase) {
+      return res.status(400).json({
+        success: true,
+        message:"Error while deleting the post"
+      })
+    }
+   
+    res.status(200).json({
+      success: true,
+      message:"post deleted successfully"
+    })
+  }
+  catch (err) {
+    res.status(500).json({
+      success: true,
+      message: "Internal server error",
+      err: err.message,
+      })
+  }
 }
 
+
+//controller for creating the upvotes of the user
 const upvotePost = async (req, res) => {
   res.json('upvote is increase by 1');
 }
 
+//controller for getting the all post  of a particular doctor;
 const getDoctorPosts = async (req, res) => {
-  res.json('doctor post fetched successfully!');
+  const doctorId = req.params.id;
+  const cases = await Cases.find({createdBy:doctorId})
+  res.json({
+     data:cases,
+  })
 }
 
 
