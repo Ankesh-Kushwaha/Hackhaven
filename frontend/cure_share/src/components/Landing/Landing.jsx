@@ -4,18 +4,24 @@ import Hero from "./Hero";
 import HowItWorks from "./HowItWorks";
 import Features from "./Features";
 import AppCTA from "./AppCTA";
-import Footer from "./Footer";
 
 const Landing = () => {
   return (
     <div className="font-sans text-gray-800">
       <Navbar />
-      <Hero />
-      <HowItWorks/>
-      <Features/>
-      <AppCTA/>
-      {/* Additional sections like HowItWorks, Features, etc. will go below */}
-      {/* Let me know if you'd like me to componentize those as well */}
+      <div
+        style={{
+          background:
+            "radial-gradient(ellipse at top , rgb(172, 194, 216) 10%, rgb(181, 165, 227) 40%, rgb(212, 188, 188) 100%)",
+        }}
+      >
+        <Hero />
+        <HowItWorks />
+        <Features />
+
+        <AppCTA />
+      </div>
+       
     </div>
   );
 };

@@ -2,7 +2,7 @@ import React from 'react';
 
 const AppCTA = () => {
   return (
-    <section className="relative py-24 px-6 md:px-20 text-center bg-white overflow-hidden">
+    <section className="relative py-24 px-6 md:px-20 text-center  overflow-hidden">
       <h2 className="text-3xl md:text-4xl font-semibold mb-4">
         Get CureShare on your phone and<br />stay connected with clinical wisdom on the go.
       </h2>
