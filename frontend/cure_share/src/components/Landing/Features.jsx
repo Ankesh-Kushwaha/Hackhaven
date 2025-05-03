@@ -11,7 +11,13 @@ const features = [
 
 const Features = () => {
   return (
-    <section id="features" className="relative py-24 px-6 md:px-20 bg-white text-center overflow-hidden">
+    <section id="features" className="relative py-24 px-6 md:px-20  text-center overflow-hidden"
+    // style={{
+    //       background:
+    //         "radial-gradient( rgb(210, 217, 224) 10%, rgb(215, 212, 224) 40%, rgb(242, 183, 183) 100%)",
+    //     }}
+
+    >
       {/* Section Title */}
       <h2 className="text-3xl md:text-4xl font-semibold mb-12">
         Explore Features of CureShare
