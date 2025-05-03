@@ -10,8 +10,6 @@ import { Contact } from "lucide-react";
 import Features from "./components/Landing/Features";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
        
