@@ -1,6 +1,8 @@
 import React from 'react';
+import axios from 'axios';
 
 const PostCard = ({ post }) => {
+
   return (
     <div className="  mb-5  flex flex-col justify-center shadow p-5 rounded-lg text-center">
       <div>
@@ -10,18 +12,20 @@ const PostCard = ({ post }) => {
       </div>
 
       <div className="w-full max-w-2xl mx-auto bg-gray-100 overflow-hidden rounded">
-        {post.image && (
+        {post.caseFiles.map((file, index) => (
           <img
-            src={post.image}
-            alt="post"
-            className="w-full h-full object-cover"
+            key={index}
+            src={file.url}
+            alt={`post-${index}`}
+            className="w-full h-full object-cover mb-2"
           />
-        )}
+        ))}
+
       </div>
 
       <div className="flex justify-center items-center text-center px-4">
         <p className="text-base max-w-xl text-gray-800 leading-relaxed">
-          {post.body}
+          {post.description.slice(0,100)}
         </p>
       </div>
 
@@ -35,7 +39,6 @@ const PostCard = ({ post }) => {
           </button>
         </div>
       </div>
-      
     </div>
   );
 };

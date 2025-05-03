@@ -1,13 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../../images/logo.png";
+import axios from 'axios';
+import {toast} from 'react-toastify'
 
 const Login = () => {
   const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleSignupRedirect = () => {
     navigate("/signup");
   };
+
+  const handleSubmit =async (e) => {
+    e.preventDefault();
+    try {
+      const data = { email, password };
+      const res = await axios.post(
+        "http://localhost:3000/api/v1/doctor/signin",
+        data
+      );
+      const token = localStorage.setItem('token', res.data.token);
+      toast.success(res.message);
+      navigate('/homepage');
+    }
+    catch (err) {
+      toast.error(err.message);
+    }
+  }
 
   return (
     <div
@@ -30,15 +51,17 @@ const Login = () => {
           For verified doctors only
         </p>
 
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={handleSubmit}>
           <input
             type="email"
             placeholder="Email address"
+            onChange={(e)=>{setEmail(e.target.value)}}
             className="w-full h-9 p-1.5 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
           <input
             type="password"
-            placeholder="Password"
+            placeholder="Enter your password..."
+            onChange={(e)=>{setPassword(e.target.value)}}
             className="w-full h-9 p-1.5 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
 
