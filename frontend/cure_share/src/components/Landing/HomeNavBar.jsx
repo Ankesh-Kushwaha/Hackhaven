@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import logo from "../../images/logo.png";
+ 
 
 const HomeNavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,17 +17,20 @@ const HomeNavBar = () => {
   };
 
   return (
-    <header className="flex justify-between items-center px-6 py-4 bg-[#f4f1f7] relative z-50 h-20"
-    style={{
+    <header
+      className="flex justify-between items-center px-6 py-4 bg-[#f4f1f7] relative z-50 h-20"
+      style={{
         background:
           "radial-gradient(ellipse at top, rgb(221, 229, 237) 10%, rgb(229, 225, 241) 40%, rgb(227, 213, 213) 100%)",
-      }}>
-    
+      }}
+    >
       {/* Logo */}
-      <div className="flex items-center">
-        <img src={logo} alt="Logo" className="h-16 w-auto" />
-        <span className="ml-2 text-xl font-bold text-blue-600"></span>
-      </div>
+      <Link to={"/"}>
+        <div className="flex items-center">
+          <img src={logo} alt="Logo" className="h-16 w-auto" />
+          <span className="ml-2 text-xl font-bold text-blue-600"></span>
+        </div>
+      </Link>
 
       {/* Global Search Bar */}
       <div className="hidden md:flex items-center flex-grow px-4">

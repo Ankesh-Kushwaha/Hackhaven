@@ -5,6 +5,7 @@ import FilterTags from "./FilterTags";
 import DoctorsList from "./DoctorsList";
 import HomeNavBar from "../Landing/HomeNavBar";
 
+
 const HomePage = () => {
   return (
     <div
