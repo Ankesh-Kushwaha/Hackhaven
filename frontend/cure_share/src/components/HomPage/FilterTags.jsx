@@ -2,17 +2,29 @@ import React from 'react';
 
 const FilterTags = () => {
   return (
-    <div className="bg-white p-4 shadow rounded-lg">
-      <h3 className="font-semibold mb-2">Filters</h3>
-      <div>
-        <label className="block mb-1">
-          <input type="checkbox" className="mr-2" /> System
+    <div className="bg-white p-6 shadow-lg rounded-lg w-full md:w-80">
+      <h3 className="text-xl font-semibold mb-4 text-gray-800">Filters</h3>
+      <div className="space-y-3">
+        <label className="flex items-center space-x-2 text-sm text-gray-700">
+          <input
+            type="checkbox"
+            className="form-checkbox h-5 w-5 text-blue-600"
+          />
+          <span>System</span>
         </label>
-        <label className="block mb-1">
-          <input type="checkbox" className="mr-2" /> Specialty
+        <label className="flex items-center space-x-2 text-sm text-gray-700">
+          <input
+            type="checkbox"
+            className="form-checkbox h-5 w-5 text-blue-600"
+          />
+          <span>Specialty</span>
         </label>
-        <label className="block mb-1">
-          <input type="checkbox" className="mr-2" /> Tags
+        <label className="flex items-center space-x-2 text-sm text-gray-700">
+          <input
+            type="checkbox"
+            className="form-checkbox h-5 w-5 text-blue-600"
+          />
+          <span>Tags</span>
         </label>
       </div>
     </div>

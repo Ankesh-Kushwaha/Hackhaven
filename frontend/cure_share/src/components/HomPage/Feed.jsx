@@ -18,9 +18,14 @@ const Feed = () => {
   ];
 
   return (
-    <div className="flex-1 space-y-4">
+    <div className="max-w-7xl w-full flex flex-col justify-center mx-auto px-4 space-y-6">
       {posts.map((post, idx) => (
-        <PostCard key={idx} post={post} />
+        <div
+          key={idx}
+          className="bg-white shadow-lg rounded-lg p-6 hover:shadow-xl transition-shadow duration-300"
+        >
+          <PostCard post={post} />
+        </div>
       ))}
     </div>
   );
