@@ -32,7 +32,7 @@ const PostCard = ({ post }) => {
       <div className="flex justify-center mt-4">
         <div className="flex gap-6 text-sm text-gray-600 items-center">
           <button className="flex items-center gap-1">
-            👍 Like <span className="font-medium text-gray-800">(10)</span>
+            👍 Like <span className="font-medium text-gray-800">({post.upvotes})</span>
           </button>
           <button className="flex items-center gap-1">
             💬 Comment <span className="font-medium text-gray-800">(0)</span>
