@@ -14,8 +14,6 @@ const Landing = () => {
       <HowItWorks/>
       <Features/>
       <AppCTA/>
-      <Footer/>
-
       {/* Additional sections like HowItWorks, Features, etc. will go below */}
       {/* Let me know if you'd like me to componentize those as well */}
     </div>
