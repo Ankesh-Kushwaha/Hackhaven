@@ -1,11 +1,18 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../../images/logo.png";
+import axios from 'axios';
+import {toast} from 'react-toastify'
 
 const Signup = () => {
-  const [selectedCountry, setSelectedCountry] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [licenseNumber, setlicenseNumber] = useState("");
+  const [bio, setBio] = useState("");
+  const [licenseCountry, setlicenseCountry] = useState("");
   const [states, setStates] = useState([]);
-  const [selectedState, setSelectedState] = useState("");
+  const [licenseState, setlicenseState] = useState("");
   const navigate = useNavigate();
 
   const countries = ['India', 'United States', 'United Kingdom', 'Canada', 'Australia'];
@@ -21,24 +28,49 @@ const Signup = () => {
 
   const handleCountryChange = (e) => {
     const country = e.target.value;
-    setSelectedCountry(country);
+    setlicenseCountry(country);
     setStates(country === 'India' ? indiaStates : []);
-    setSelectedState("");
+    setlicenseState("");
   };
 
   const handleStateChange = (e) => {
-    setSelectedState(e.target.value);
+    setlicenseState(e.target.value);
   };
 
   const handleLoginRedirect = () => {
     navigate("/login");
   };
 
+  const handleOnsubmit = async(e) => {
+    e.preventDefault();
+    const data = {
+      fullName,
+      email,
+      password,
+      licenseNumber,
+      licenseCountry,
+      licenseState,
+      bio
+    }
+    
+    try {
+      const res = await axios.post(
+        "http://localhost:3000/api/v1/doctor/signup",
+        data
+      );
+      toast.success(res.message);
+    }
+    catch (err) {
+      toast.error(err.message);
+    }
+    console.log(data);
+  }
+
   return (
     <div
       style={{
         background:
-          'radial-gradient(circle at top left,rgb(195, 209, 224) 0%,rgb(201, 190, 237) 40%,rgb(196, 159, 199) 100%)'
+          "radial-gradient(circle at top left,rgb(195, 209, 224) 0%,rgb(201, 190, 237) 40%,rgb(196, 159, 199) 100%)",
       }}
       className="min-h-screen flex items-center justify-center bg-gradient-to-tr from-purple-100 via-white to-purple-50 px-4"
     >
@@ -51,7 +83,7 @@ const Signup = () => {
           Doctor Registration - Cure Share
         </h2>
 
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={handleOnsubmit}>
           <input
             type="text"
             placeholder="Full Name"
@@ -59,17 +91,32 @@ const Signup = () => {
           />
           <input
             type="email"
-            placeholder="Email"
+            placeholder="enter your email.."
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
             className="w-full h-9 p-1.5 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
           />
           <input
             type="password"
-            placeholder="Password"
+            placeholder="Enter your Password"
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+            className="w-full h-9 p-1.5 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
+          />
+
+          <input
+            type="text"
+            placeholder="Enter your License No...."
+            onChange={(e) => {
+              setlicenseNumber(e.target.value);
+            }}
             className="w-full h-9 p-1.5 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
           />
 
           <select
-            value={selectedCountry}
+            value={licenseCountry}
             onChange={handleCountryChange}
             className="w-full h-9 p-1.5 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
           >
@@ -82,7 +129,7 @@ const Signup = () => {
           </select>
 
           <select
-            value={selectedState}
+            value={licenseState}
             onChange={handleStateChange}
             disabled={!states.length}
             className="w-full h-9 p-1.5 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
@@ -100,6 +147,8 @@ const Signup = () => {
           <textarea
             rows="3"
             placeholder="Brief Bio (Specialization, Experience, etc.)"
+            value={bio}
+            onChange={(e) => setBio(e.target.value)}
             className="w-full p-1.5 h-[75px] border border-gray-300 rounded-md resize-none text-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
           ></textarea>
 

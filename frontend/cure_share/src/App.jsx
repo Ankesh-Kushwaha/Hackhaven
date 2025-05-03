@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Landing from "./components/Landing/Landing";
 import Login from "./components/Login_Sign/Login";
 import Signup from "./components/Login_Sign/Signup";
@@ -9,11 +8,12 @@ import About from "./components/About/About";
 import { Contact } from "lucide-react";
 import Features from "./components/Landing/Features";
 import Footer from "./components/Landing/Footer";
+import { ToastContainer} from "react-toastify";
 
 function App() {
   return (
     <>
-       
+      <ToastContainer position="top-right" autoClose={3000} />
       <Router>
         <Routes>
           <Route path="/" element={<Landing />} />
@@ -21,13 +21,12 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/create-case" element={<CreatePost />} />
-          <Route path="/about" element={<About/>}></Route>
-          <Route path="/contact" element={<Contact/>}></Route>
-          <Route path="/features" element={<Features/>}></Route>
+          <Route path="/about" element={<About />}></Route>
+          <Route path="/contact" element={<Contact />}></Route>
+          <Route path="/features" element={<Features />}></Route>
         </Routes>
-        < Footer/>
+        <Footer />
       </Router>
-      
     </>
   );
 }
