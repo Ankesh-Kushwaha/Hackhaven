@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../../images/logo.png";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -19,9 +20,11 @@ const Login = () => {
     >
       <div className="w-full max-w-md  bg-[#FAF9F6] p-8 rounded-2xl shadow-xl border border-gray-100">
         {/* Logo */}
-        <div className="flex justify-center mb-4">
-          <img src={logo} alt="Logo" className="h-14 w-auto" />
-        </div>
+        <Link to={"/"}>
+          <div className="flex justify-center mb-4">
+            <img src={logo} alt="Logo" className="h-14 w-auto" />
+          </div>
+        </Link>
 
         <h2 className="text-2xl font-semibold text-center mb-4 text-gray-800">
           Login to CureShare

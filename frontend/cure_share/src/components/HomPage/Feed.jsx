@@ -18,7 +18,7 @@ const Feed = () => {
   ];
 
   return (
-    <div className="max-w-7xl w-full flex flex-col justify-center mx-auto px-4 space-y-6">
+    <div className="max-w-7xl w-full  flex flex-col justify-center mx-auto px-4 space-y-6">
       {posts.map((post, idx) => (
         <div
           key={idx}

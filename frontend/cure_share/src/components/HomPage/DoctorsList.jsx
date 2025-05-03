@@ -3,7 +3,7 @@ import React from 'react';
 const DoctorsList = () => {
   const doctors = ['Dr. Smith', 'Dr. Alice', 'Dr. Nikhil'];
   return (
-    <div className="bg-white p-4 shadow rounded-lg">
+    <div className="bg-gray-200 p-4 shadow rounded-lg">
       <h3 className="font-semibold mb-2">Doctors to Follow</h3>
       <ul>
         {doctors.map((doc, i) => (

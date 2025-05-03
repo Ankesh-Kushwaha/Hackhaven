@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route ,Routes } from 'react-router-dom';
 import HomePage from "./components/HomPage/HomePage";
 import CreatePost from "./components/Post/CreatePost";
 import About from "./components/About/About";
-import { Contact } from "lucide-react";
+import  Contact  from "./components/About/Contact";
 import Features from "./components/Landing/Features";
 import Footer from "./components/Landing/Footer";
 

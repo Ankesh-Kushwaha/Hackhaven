@@ -2,7 +2,7 @@ import React from 'react';
 
 const FilterTags = () => {
   return (
-    <div className="bg-white p-6 shadow-lg rounded-lg w-full md:w-80">
+    <div className="bg-gray-100 p-6 shadow-lg rounded-lg w-full md:w-80">
       <h3 className="text-xl font-semibold mb-4 text-gray-800">Filters</h3>
       <div className="space-y-3">
         <label className="flex items-center space-x-2 text-sm text-gray-700">

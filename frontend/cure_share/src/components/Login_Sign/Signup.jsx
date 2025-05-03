@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../../images/logo.png";
+import { Link } from "react-router-dom";
 
 const Signup = () => {
   const [selectedCountry, setSelectedCountry] = useState("");
@@ -43,9 +44,11 @@ const Signup = () => {
       className="min-h-screen flex items-center justify-center bg-gradient-to-tr from-purple-100 via-white to-purple-50 px-4"
     >
       <div className="w-full max-w-lg bg-[#FAF9F6] p-8 rounded-2xl shadow-xl border border-purple-100">
-        <div className="flex justify-center mb-4">
-          <img src={logo} alt="Logo" className="h-14 w-auto" />
-        </div>
+      <Link to={"/"}>
+          <div className="flex justify-center mb-4">
+            <img src={logo} alt="Logo" className="h-14 w-auto" />
+          </div>
+        </Link>
 
         <h2 className="text-2xl font-semibold text-center text-purple-700 mb-4">
           Doctor Registration - Cure Share
