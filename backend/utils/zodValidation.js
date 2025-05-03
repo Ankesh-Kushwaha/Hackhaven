@@ -38,11 +38,31 @@ const CreatecaseValidation = zod.object({
 });
 
 
+const updateCaseValidation = zod.object({
+  title: zod.string().min(1, "Title is required").optional(),
+  description: zod.string().min(1, "Description is required").optional(),
+
+  specialties: zod.array(zod.string()).optional(),
+  diseaseTags: zod.array(zod.string()).optional(),
+  generalTags: zod.array(zod.string()).optional(),
+
+  patientAge: zod.number().optional(),
+  patientGender: zod.enum(["Male", "Female", "Other", "Unknown"]).optional(), 
+  upvotes: zod.number().optional(),
+  upvotedBy: zod.array(zod.string().regex(/^[0-9a-fA-F]{24}$/)).optional(),
+  
+  status: zod.enum(["Published", "Under Review", "Flagged"]).optional(),
+  views: zod.number().optional(),
+
+  createdAt: zod.date().optional(),
+  updatedAt: zod.date().optional()
+})
 
 
 
 module.exports = {
   signupValidate,
   signinValidation,
-  CreatecaseValidation
+  CreatecaseValidation,
+  updateCaseValidation
 }

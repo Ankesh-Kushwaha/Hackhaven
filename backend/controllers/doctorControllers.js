@@ -104,7 +104,7 @@ const signinDoctor = async (req, res) => {
     //creating the json web token
     const token = jwt.sign({
       user: user._id
-    }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    }, process.env.JWT_SECRET,);
 
     res.status(200).json({
       success: true,
@@ -126,7 +126,7 @@ const getDoctorProfile = async (req, res) => {
     const doctorId = req.params.doctorId;
     const doctorProfile = await Doctors.findById(doctorId);
     if (!doctorProfile) {
-      return res.status(402).json({
+      return res.status(400).json({
         success: false,
          message:'Doctor profile does not exist'
         })

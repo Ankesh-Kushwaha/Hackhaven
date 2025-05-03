@@ -1,9 +1,7 @@
 const {Cases}=require('../schema/Schema')
-const { CreatecaseValidation } = require('../utils/zodValidation')
+const { CreatecaseValidation ,updateCaseValidation} = require('../utils/zodValidation')
 const { cloudinary } = require('../utils/cloudinaryconfig');
 const streamifier = require('streamifier');
-const { FaSleigh } = require('react-icons/fa');
-
 
 //function to convert the coming body to its specified types
 const parseArray = (value) => {
@@ -44,7 +42,7 @@ const createPost = async (req, res) => {
       
 
     const result = CreatecaseValidation.safeParse(body); //checking the validation check
-    const doctorId = req.params.doctorId;
+    const doctorId = req.user.user;  //take the doctor id from the authMiddleware
 
     if (!result.success) {
       return res.status(400).json({
@@ -124,13 +122,76 @@ const createPost = async (req, res) => {
 
 //controller for updating a particular post
 const updatePost = async (req, res) => {
-  res.json('post updated successfully');
+  try {
+    const postId = req.params.id;
+    const casetoUpdate = await Cases.findById(postId);
+    if (!casetoUpdate) {
+      return res.status(400).json({
+        success: false,
+        message:'case does not exist'
+       })
+    }
+
+    //find the post and update it with the given body
+    const body = req.body;
+    if (!body) {
+      return res.status(400).json({
+        success: false,
+        message: "Case data is required for update",
+      })
+    }
+    //check for the zod Validation
+    const success = updateCaseValidation.safeParse(body);
+    if (!success.success) {
+      return res.status(400).json({
+        success: true,
+        message:"zod validation failed"
+        })
+    }
+
+    const userId = req.user.user; //get the user id of the doctor from the authMiddleware
+    if (userId.toString() !== casetoUpdate.createdBy.toString()) {
+      return res.status(400).json({
+        success: false,
+        message:"you are not authorised to update this post"
+        })
+    }
+
+    //const find the post with the given postId and update the post;
+    const updtaedCase = await Cases.findByIdAndUpdate(
+          postId,
+         { $set:body },
+         { new: true, runValidators: true }
+    )
+  
+    if (!updtaedCase) {
+      return res.status(400).json({
+        success: false,
+        message:"Error while updating the Case",
+       })
+    }
+    else {
+      res.status(200).json({
+        success: true,
+        message: "Case updated Successfully",
+        case:updtaedCase
+       })
+    }
+  }
+  catch (err) {
+    res.status(500).json({
+      success: true,
+      message: "Internal server Error",
+      error:err.message
+     })
+  }
 }
+
 
 //controller for getting all the posts
 const getAllPosts = async (req, res) => {
   try {
-    const allCases = await Cases.find();
+    const allCases = await Cases.find().sort({upvotes:-1}).limit(5);
     res.status(200).json({
       success: true,
       message: "All post fetched successfully",
@@ -144,6 +205,8 @@ const getAllPosts = async (req, res) => {
       })
    }
 }
+
+
 
 //controller for getting a single post
 const getOnePost = async (req, res) => {
@@ -315,9 +378,45 @@ const getDoctorPosts = async (req, res) => {
 }
 
 
+const globalSearch = async (req,res) => {
+  try {
+    const q = req.query.q
+    //if the query is not found than return from there 
+    if (!q || q.trim() ===" ") {
+      return res.status(400).json({
+        success: false,
+        message:"query is required"
+        })
+    }
+
+   const results = await Cases.find({
+      $or: [
+        { title: { $regex: q, $options: 'i' } },
+        { diseaseTags: { $elemMatch: { $regex: q, $options: 'i' } } },
+        { specialties: { $elemMatch: { $regex: q, $options: 'i' } } },
+        { generalTags: { $elemMatch: { $regex: q, $options: 'i' } } },
+      ],
+          caseFiles: { $exists: true, $ne: [] }, // you likely meant this instead of 'image'
+    });
+
+    res.status(200).json({
+      success: true,
+      message: "Post fetched successfully",
+      cases:results,
+  })
+  }
+  catch (err) {
+    res.status(500).json({
+      success: true,
+      message: "Internal Server Error",
+      error:err.message
+      })
+  }
+};
 
 
 module.exports = {
+  globalSearch,
   createPost,
   updatePost,
   getAllPosts,
@@ -325,5 +424,5 @@ module.exports = {
   deletePost,
   upvotePost,
   getDoctorPosts,
-  downvotePost
+  downvotePost,
 }
