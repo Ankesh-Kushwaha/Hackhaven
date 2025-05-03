@@ -8,6 +8,7 @@ const HomeNavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
+
   const handleLinkClick = () => {
     setIsOpen(false);
   };
@@ -76,7 +77,7 @@ const HomeNavBar = () => {
             {/* Create Case Button for Mobile */}
             <Link
               to="/create-case"
-              onClick={handleLinkClick}
+ 
               className="px-4 py-2 bg-blue-600 text-white rounded-full w-4/5 text-center"
             >
               Create Case
