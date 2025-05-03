@@ -73,10 +73,6 @@ const HomeNavBar = () => {
             {/* Create Case Button for Mobile */}
             <Link
               to="/create-case"
-<<<<<<< HEAD
-=======
-              onClick={handleLinkClick}
->>>>>>> a472b9b96ad2001dc4d38d68c14f76736c8809b2
               className="px-4 py-2 bg-blue-600 text-white rounded-full w-4/5 text-center"
             >
               Create Case

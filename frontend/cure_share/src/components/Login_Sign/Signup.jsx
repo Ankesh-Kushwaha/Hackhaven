@@ -59,6 +59,7 @@ const Signup = () => {
         data
       );
       toast.success(res.message);
+      navigate('/homepage');
     }
     catch (err) {
       toast.error(err.message);
@@ -87,6 +88,7 @@ const Signup = () => {
           <input
             type="text"
             placeholder="Full Name"
+            onChange={(e)=>{setFullName(e.target.value)}}
             className="w-full h-9 p-1.5 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
           />
           <input
