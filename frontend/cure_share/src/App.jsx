@@ -8,6 +8,7 @@ import CreatePost from "./components/Post/CreatePost";
 import About from "./components/About/About";
 import { Contact } from "lucide-react";
 import Features from "./components/Landing/Features";
+import Footer from "./components/Landing/Footer";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/contact" element={<Contact/>}></Route>
           <Route path="/features" element={<Features/>}></Route>
         </Routes>
+        < Footer/>
       </Router>
       
     </>
