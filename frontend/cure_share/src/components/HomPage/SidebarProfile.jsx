@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate ,Link} from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const SidebarProfile = () => {
   const navigate = useNavigate();
@@ -9,7 +9,10 @@ const SidebarProfile = () => {
   };
 
   return (
-    <div className="w-full md:w-64 bg-white shadow rounded-lg p-4">
+    <div
+      className="w-full h-full md:w-64 shadow rounded-lg p-4 bg-gray-100"
+       
+    >
       <div className="flex flex-col items-center text-center">
         <img
           src="https://imgs.search.brave.com/lu5Qr2afNGPu4ByrBboz1O0d1TwwcbTGuqKPdiInVvs/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTMw/NTQ2MjczMi9waG90/by9oZWFkc2hvdC1z/dHVkaW8tcG9ydHJh/aXQtb2YtYS13b21h/bi1pbi1wcm9maWxl/LWxvb2tpbmctYXQt/dGhlLWNhbWVyYS5q/cGc_cz02MTJ4NjEy/Jnc9MCZrPTIwJmM9/VDBSLXBBbUpKcEVy/V2M4aEUwalNKbm1w/dFVGUTVNdnRQWDdO/UEpKbG45cz0"

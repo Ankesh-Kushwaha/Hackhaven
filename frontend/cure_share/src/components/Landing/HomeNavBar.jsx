@@ -16,10 +16,15 @@ const HomeNavBar = () => {
   };
 
   return (
-    <header className="flex justify-between items-center px-6 py-4 shadow-md bg-white relative z-50">
+    <header className="flex justify-between items-center px-6 py-4 bg-[#f4f1f7] relative z-50 h-20"
+    style={{
+        background:
+          "radial-gradient(ellipse at top, rgb(221, 229, 237) 10%, rgb(229, 225, 241) 40%, rgb(227, 213, 213) 100%)",
+      }}>
+    
       {/* Logo */}
       <div className="flex items-center">
-        <img src={logo} alt="Logo" className="h-10 w-auto" />
+        <img src={logo} alt="Logo" className="h-16 w-auto" />
         <span className="ml-2 text-xl font-bold text-blue-600"></span>
       </div>
 
@@ -66,7 +71,7 @@ const HomeNavBar = () => {
 
             {/* Create Case Button for Mobile */}
             <Link
-              to="/create-post"
+              to="/create-case"
               onClick={handleLinkClick}
               className="px-4 py-2 bg-blue-600 text-white rounded-full w-4/5 text-center"
             >

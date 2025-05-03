@@ -2,7 +2,7 @@ import React from 'react';
 
 const PostCard = ({ post }) => {
   return (
-    <div className="bg-white mb-5  flex flex-col justify-center shadow p-5 rounded-lg text-center">
+    <div className="  mb-5  flex flex-col justify-center shadow p-5 rounded-lg text-center">
       <div>
         <h3 className="text-lg font-semibold  mb-2 font-serif text-slate-800">
           {post.title}

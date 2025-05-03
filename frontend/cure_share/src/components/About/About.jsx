@@ -1,20 +1,102 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "../../images/logo.png";
+import { Menu, X } from "lucide-react";
+ 
+import { Link } from "react-router-dom";
+ 
+
 
 const About = () => {
+
+const [isOpen, setIsOpen] = useState(false);
+
+  const handleLinkClick = () => {
+    setIsOpen(false);
+  };  
   return (
-    
-    <div
-      className="min-h-screen px-4 py-16 bg-gradient-to-br from-purple-50 via-white to-blue-50 "
+    <div>
+     <header
+      className="flex justify-between items-center px-6 py-4 bg-[#f4f1f7] relative z-50 h-20"
       style={{
         background:
-          "radial-gradient(circle at top left, #c0e0ff 0%, #d9ccff 40%, #ffffff 100%)",
+          "radial-gradient(ellipse at top, rgb(221, 229, 237) 10%, rgb(229, 225, 241) 40%, rgb(227, 213, 213) 100%)",
       }}
     >
-    <div className="flex items-center absolute top-6 left-6">
+      {/* Logo */}
+      <div className="flex items-center">
         <img src={logo} alt="Logo" className="h-16 w-auto" />
         <span className="ml-2 text-xl font-bold text-blue-600"></span>
       </div>
+
+      {/* Desktop Nav */}
+      <nav className="hidden md:flex space-x-6 items-center">
+        <Link
+          to="/HomePage"
+          className="px-4 py-2 text-600 rounded-full hover:bg-blue-50 transition"
+        >
+          Home
+        </Link>
+        <a href="#features" className="px-4 py-2 text-600 rounded-full hover:text-blue-600 transition">
+          Features
+        </a>
+         
+        <Link to="/contact" className="px-4 py-2 text-600 rounded-full hover:text-blue-600 transition">
+          Contact
+        </Link>
+      </nav>
+
+      {/* Desktop Buttons */}
+      <div className="hidden md:flex space-x-4">
+        <Link
+          to="/login"
+          className="px-4 py-2 border border-blue-600 text-blue-600 rounded-full hover:bg-blue-50 transition"
+        >
+          Login
+        </Link>
+        <Link
+          to="/signup"
+          className="px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition"
+        >
+          Sign Up
+        </Link>
+      </div>
+
+      {/* Mobile Menu Toggle */}
+      <div className="md:hidden">
+        <button onClick={() => setIsOpen(!isOpen)} aria-label="Toggle Menu">
+          {isOpen ? <X /> : <Menu />}
+        </button>
+      </div>
+
+      {/* Mobile Menu */}
+      {isOpen && (
+        <div className="absolute top-16 left-0 w-full bg-white md:hidden transition-all shadow-md">
+          <div className="flex flex-col items-center py-4 space-y-4">
+            <Link to="/HomePage" onClick={handleLinkClick} className="hover:text-blue-600">
+              Home
+            </Link>
+            <a href="#features" onClick={handleLinkClick} className="hover:text-blue-600">
+              Features
+            </a>
+             
+            <Link to="/contact" onClick={handleLinkClick} className="hover:text-blue-600">
+              Contact
+            </Link>
+             
+             
+          </div>
+        </div>
+      )}
+    </header>
+      <div
+      className="min-h-screen px-4 py-16 bg-gradient-to-br from-purple-50 via-white to-blue-50 "
+      style={{
+          background:
+            "radial-gradient(ellipse at top , rgb(172, 194, 216) 10%, rgb(181, 165, 227) 40%, rgb(212, 188, 188) 100%)",
+        }}
+    >
+   
+     
       
       <div className="max-w-6xl mx-auto text-center">
         <h1 className="text-4xl md:text-4xl font-extrabold text-purple-700 mb-6">
@@ -53,6 +135,8 @@ const About = () => {
         </div>
       </div>
     </div>
+    </div>
+    
   );
 };
 

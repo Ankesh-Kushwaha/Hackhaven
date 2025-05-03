@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import logo from "../../images/logo.png";
 
 const CreatePost = () => {
   const [title, setTitle] = useState("");
@@ -24,74 +25,89 @@ const CreatePost = () => {
       specialty,
       tags: tags.split(" ").filter(Boolean),
       content,
-      image
+      image,
     };
 
     console.log("Post submitted:", postData);
-    // Submit to backend or state management
   };
 
   return (
-    <div className="max-w-4xl mx-auto mt-10 p-6 bg-white rounded-xl shadow-md border border-gray-200">
-      <h1 className="text-2xl font-bold mb-6 text-purple-700">Create Medical Post</h1>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input
-          type="text"
-          placeholder="Post Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          className="w-full p-3 border rounded-md"
-        />
-        <input
-          type="text"
-          placeholder="Posted by (Doctor's Name)"
-          value={author}
-          onChange={(e) => setAuthor(e.target.value)}
-          className="w-full p-3 border rounded-md"
-        />
-        <input
-          type="text"
-          placeholder="Specialty"
-          value={specialty}
-          onChange={(e) => setSpecialty(e.target.value)}
-          className="w-full p-3 border rounded-md"
-        />
-        <input
-          type="text"
-          placeholder="Tags (use space between hashtags, e.g. #IBD #Celiac)"
-          value={tags}
-          onChange={(e) => setTags(e.target.value)}
-          className="w-full p-3 border rounded-md"
-        />
-        <textarea
-          rows="6"
-          placeholder="Case details, symptoms, test results, etc."
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          className="w-full p-3 border rounded-md resize-none"
-        ></textarea>
+    <div
+      className="min-h-screen flex flex-col justify-between"
+      style={{
+        background:
+          "radial-gradient(ellipse at top , rgb(172, 194, 216) 10%, rgb(181, 165, 227) 40%, rgb(212, 188, 188) 100%)",
+      }}
+    >
+     
 
-        <input
-          type="file"
-          accept="image/*"
-          onChange={handleImageChange}
-          className="block mt-2"
-        />
-        {image && (
-          <img
-            src={image}
-            alt="Preview"
-            className="mt-4 w-full h-auto rounded-md border"
+      <div className="max-w-4xl mx-auto mt-12 p-6 bg-purple-100 rounded-lg shadow-sm border border-gray-200">
+      <div className="flex items-center justify-center">
+        <img src={logo} alt="Logo" className="h-16 w-auto" />
+      </div>
+        <h1 className="text-xl font-semibold mb-4 text-purple-500">
+          Create Medical Post
+        </h1>
+        <form onSubmit={handleSubmit} className="space-y-3 text-sm">
+          <input
+            type="text"
+            placeholder="Post Title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-300"
           />
-        )}
+          <input
+            type="text"
+            placeholder="Posted by (Doctor's Name)"
+            value={author}
+            onChange={(e) => setAuthor(e.target.value)}
+            className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-300"
+          />
+          <input
+            type="text"
+            placeholder="Specialty"
+            value={specialty}
+            onChange={(e) => setSpecialty(e.target.value)}
+            className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-300"
+          />
+          <input
+            type="text"
+            placeholder="Tags (e.g. #IBD #Celiac)"
+            value={tags}
+            onChange={(e) => setTags(e.target.value)}
+            className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-300"
+          />
+          <textarea
+            rows="6"
+            placeholder="Case details, symptoms, test results, etc."
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            className="w-full p-2 border rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-purple-300"
+          ></textarea>
 
-        <button
-          type="submit"
-          className="bg-purple-600 text-white px-6 py-3 rounded-md hover:bg-purple-700 transition"
-        >
-          Post
-        </button>
-      </form>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+            className="block text-sm mt-1"
+          />
+
+          {image && (
+            <img
+              src={image}
+              alt="Preview"
+              className="mt-4 w-full h-auto rounded-md border"
+            />
+          )}
+
+          <button
+            type="submit"
+            className="bg-purple-600 text-white px-5 py-2 rounded-md hover:bg-purple-700 transition text-sm"
+          >
+            Post
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
