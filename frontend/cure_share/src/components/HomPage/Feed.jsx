@@ -1,5 +1,6 @@
 import React from 'react';
 import PostCard from './PostCard';
+import {Link} from "react-router-dom"
 
 const Feed = () => {
   const posts = [
@@ -18,6 +19,7 @@ const Feed = () => {
   ];
 
   return (
+    <Link to={"/post"}>
     <div className="max-w-7xl w-full  flex flex-col justify-center mx-auto px-4 space-y-6">
       {posts.map((post, idx) => (
         <div
@@ -28,6 +30,7 @@ const Feed = () => {
         </div>
       ))}
     </div>
+    </Link>
   );
 };
 
