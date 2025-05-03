@@ -11,8 +11,6 @@ import Features from "./components/Landing/Features";
 import Footer from "./components/Landing/Footer";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
        
