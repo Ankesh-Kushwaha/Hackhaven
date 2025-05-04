@@ -1,20 +1,51 @@
-import React, { useState } from "react";
-import { Menu, X } from "lucide-react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Menu, X, LogOut } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../images/logo.png";
+<<<<<<< HEAD
  
+=======
+import axios from 'axios'
+import {toast} from 'react-toastify'
+>>>>>>> Amankumar140-main
 
 const HomeNavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-
+  const navigate = useNavigate();
 
   const handleLinkClick = () => {
     setIsOpen(false);
   };
 
-  const handleSearchChange = (e) => {
+  const handleSearchChange = async (e) => {
     setSearchQuery(e.target.value);
+
+    try {
+      const res = await axios.post(
+        `http://localhost:3000/api/v1/post/globalsearch?q=${e.target.value}`, // Updated to pass the search term directly here
+        {}, // Empty object for the body if you're not sending any data
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      // Handle success (for example, log the response)
+      console.log(res.data);
+    } catch (err) {
+      toast.error(err.message);
+    }
+  };
+
+  useEffect(() => {
+     handleSearchChange()
+  }, [searchQuery])
+  
+  const handleLogout = () => {
+    // 🔐 Add actual logout logic (e.g. clear tokens)
+    localStorage.removeItem("token");
+    navigate("/login"); // Or wherever your login page is
   };
 
   return (
@@ -26,7 +57,11 @@ const HomeNavBar = () => {
       }}
     >
       {/* Logo */}
+<<<<<<< HEAD
       <Link to={"/"}>
+=======
+      <Link to={"/homepage"}>
+>>>>>>> Amankumar140-main
         <div className="flex items-center">
           <img src={logo} alt="Logo" className="h-16 w-auto" />
           <span className="ml-2 text-xl font-bold text-blue-600"></span>
@@ -44,14 +79,21 @@ const HomeNavBar = () => {
         />
       </div>
 
-      {/* Create Case Button */}
-      <div className="hidden md:flex space-x-4">
+      {/* Right Buttons (Desktop) */}
+      <div className="hidden md:flex space-x-4 items-center">
         <Link
           to="/create-case"
           className="px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition"
         >
           Create Case
         </Link>
+        <button
+          onClick={handleLogout}
+          className="flex items-center px-4 py-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition"
+        >
+          <LogOut className="w-4 h-4 mr-1" />
+          Logout
+        </button>
       </div>
 
       {/* Mobile Menu Toggle */}
@@ -65,7 +107,6 @@ const HomeNavBar = () => {
       {isOpen && (
         <div className="absolute top-16 left-0 w-full bg-white shadow-md md:hidden transition-all">
           <div className="flex flex-col items-center py-4 space-y-4">
-            {/* Global Search Bar for Mobile */}
             <input
               type="text"
               placeholder="Search for cases, doctors..."
@@ -73,15 +114,27 @@ const HomeNavBar = () => {
               onChange={handleSearchChange}
               className="w-4/5 px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-
-            {/* Create Case Button for Mobile */}
             <Link
               to="/create-case"
+<<<<<<< HEAD
  
+=======
+>>>>>>> Amankumar140-main
               className="px-4 py-2 bg-blue-600 text-white rounded-full w-4/5 text-center"
+              onClick={handleLinkClick}
             >
               Create Case
             </Link>
+            <button
+              onClick={() => {
+                handleLogout();
+                handleLinkClick();
+              }}
+              className="flex items-center justify-center gap-1 px-4 py-2 bg-red-500 text-white rounded-full w-4/5 hover:bg-red-600 transition"
+            >
+              <LogOut className="w-4 h-4" />
+              Logout
+            </button>
           </div>
         </div>
       )}
