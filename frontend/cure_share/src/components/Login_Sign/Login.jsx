@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import logo from "../../images/logo.png";
 import axios from 'axios';
-import {toast} from 'react-toastify'
+import { toast } from 'react-toastify'
+
 
 const Login = () => {
   const navigate = useNavigate();
@@ -40,9 +41,11 @@ const Login = () => {
     >
       <div className="w-full max-w-md  bg-[#FAF9F6] p-8 rounded-2xl shadow-xl border border-gray-100">
         {/* Logo */}
-        <div className="flex justify-center mb-4">
-          <img src={logo} alt="Logo" className="h-14 w-auto" />
-        </div>
+        <Link to={'/'}>
+          <div className="flex justify-center mb-4">
+            <img src={logo} alt="Logo" className="h-14 w-auto" />
+          </div>
+        </Link>
 
         <h2 className="text-2xl font-semibold text-center mb-4 text-gray-800">
           Login to CureShare
@@ -55,13 +58,17 @@ const Login = () => {
           <input
             type="email"
             placeholder="Email address"
-            onChange={(e)=>{setEmail(e.target.value)}}
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
             className="w-full h-9 p-1.5 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
           <input
             type="password"
             placeholder="Enter your password..."
-            onChange={(e)=>{setPassword(e.target.value)}}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
             className="w-full h-9 p-1.5 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
 

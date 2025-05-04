@@ -6,6 +6,7 @@ import {toast} from 'react-toastify'
 
 const Feed = () => {
   const [cases, setCases] = useState([]);
+  
 
   const getAlPost = async () => {
     try {

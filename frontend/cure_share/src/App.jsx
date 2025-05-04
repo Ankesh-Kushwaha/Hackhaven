@@ -5,10 +5,11 @@ import { BrowserRouter as Router, Route ,Routes } from 'react-router-dom';
 import HomePage from "./components/HomPage/HomePage";
 import CreatePost from "./components/Post/CreatePost";
 import About from "./components/About/About";
-import { Contact } from "lucide-react";
+import Contact from "./components/Contact";
 import Features from "./components/Landing/Features";
 import Footer from "./components/Landing/Footer";
-import { ToastContainer} from "react-toastify";
+import { ToastContainer } from "react-toastify";
+import CaseView from "./components/Post/CaseView";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/about" element={<About />}></Route>
           <Route path="/contact" element={<Contact />}></Route>
           <Route path="/features" element={<Features />}></Route>
+          <Route path="/caseview/:id"  element={<CaseView/>}></Route>
         </Routes>
         <Footer />
       </Router>

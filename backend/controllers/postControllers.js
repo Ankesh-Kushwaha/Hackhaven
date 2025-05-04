@@ -191,7 +191,7 @@ const updatePost = async (req, res) => {
 //controller for getting all the posts
 const getAllPosts = async (req, res) => {
   try {
-    const allCases = await Cases.find().sort({upvotes:-1}).limit(5);
+    const allCases = await Cases.find().sort({upvotes:-1});
     res.status(200).json({
       success: true,
       message: "All post fetched successfully",
