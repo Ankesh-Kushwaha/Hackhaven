@@ -24,8 +24,10 @@ const Login = () => {
         data
       );
       const token = localStorage.setItem('token', res.data.token);
-      const payload = jwtDecode(token)
-      console.log(payload)
+      const restoken = res.data.token;
+      const payload = jwtDecode(restoken)
+      const userId = localStorage.setItem('id',payload.user);
+      // console.log(payload.user)
       toast.success(res.message);
       navigate('/homepage');
     }

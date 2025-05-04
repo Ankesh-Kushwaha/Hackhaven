@@ -10,8 +10,7 @@ const Feed = () => {
 
   const getAlPost = async () => {
     try {
-      const token = localStorage.getItem("token");
-      console.log(token);
+      const token = localStorage.getItem("token");;
       const res = await axios.get("http://localhost:3000/api/v1/post/getall", {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -26,13 +25,7 @@ const Feed = () => {
 
   useEffect(() => {
     getAlPost();
-    console.log(cases);
   }, []);
-
-  useEffect(() => {
-    console.log("Updated cases:", cases); // Logs the state whenever it changes
-  }, [cases]); // Runs every time 'cases' state changes
-
 
   return (
     <div className="max-w-5xl w-md cursor-pointer flex flex-col justify-center mx-auto px-4 space-y-6">
