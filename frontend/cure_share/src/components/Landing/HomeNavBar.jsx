@@ -3,7 +3,7 @@ import { Menu, X, LogOut } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../images/logo.png";
 import axios from 'axios'
-import toast from 'react-toastify'
+import {toast} from 'react-toastify'
 
 const HomeNavBar = () => {
   const [isOpen, setIsOpen] = useState(false);

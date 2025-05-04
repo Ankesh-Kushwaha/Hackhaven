@@ -3,6 +3,7 @@ import { useNavigate,Link } from "react-router-dom";
 import logo from "../../images/logo.png";
 import axios from 'axios';
 import { toast } from 'react-toastify'
+import {jwtDecode }  from 'jwt-decode'
 
 
 const Login = () => {
@@ -23,6 +24,8 @@ const Login = () => {
         data
       );
       const token = localStorage.setItem('token', res.data.token);
+      const payload = jwtDecode(token)
+      console.log(payload)
       toast.success(res.message);
       navigate('/homepage');
     }
