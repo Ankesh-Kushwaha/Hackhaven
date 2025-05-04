@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import logo from "../../images/logo.png";
+import axios from 'axios';
+import {toast} from 'react-toastify'
+import { useNavigate } from "react-router-dom";
 
 const CreatePost = () => {
   const [title, setTitle] = useState("");
-  const [author, setAuthor] = useState("");
+  const [age, setage] = useState(0);
   const [specialty, setSpecialty] = useState("");
   const [tags, setTags] = useState("");
   const [content, setContent] = useState("");
   const [image, setImage] = useState(null);
+  const navigate = useNavigate();
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -16,18 +20,36 @@ const CreatePost = () => {
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
 
+
+
+  const handleSubmit = async(e) => {
+    e.preventDefault();
     const postData = {
       title,
-      author,
+      age,
       specialty,
       tags: tags.split(" ").filter(Boolean),
       content,
       image,
     };
-
+    
+    try {
+      const res = await axios.post(
+        "http://localhost:3000/api/v1/post/create",
+        postData,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      toast.success(res.message);
+      navigate('/homepage');
+    }
+    catch (err) {
+      toast.error(err.message);
+    }
     console.log("Post submitted:", postData);
   };
 
@@ -58,9 +80,9 @@ const CreatePost = () => {
           />
           <input
             type="text"
-            placeholder="Posted by (Doctor's Name)"
-            value={author}
-            onChange={(e) => setAuthor(e.target.value)}
+            placeholder="Enter the patient age"
+            value={age}
+            onChange={(e) => setage(e.target.value)}
             className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-300"
           />
           <input
